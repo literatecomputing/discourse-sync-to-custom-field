@@ -3,7 +3,7 @@ en:
     admin:
       site_settings:
         categories:
-          TODO_plugin_name: "Plugin Name"
+          discourse_sync_to_custom_field: "Discourse Sync To Custom Field"
   js:
-    discourse_plugin_name:
+    discourse_sync_to_custom_field:
       placeholder: placeholder
