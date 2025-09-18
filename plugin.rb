@@ -41,7 +41,9 @@ after_initialize do
       puts "All user fields: #{UserField.all.inspect}"
       if custom_field.present?
         puts "--------> Syncing location to custom field #{custom_field.inspect} -- #{SiteSetting.discourse_sync_to_custom_field_custom_location_field.inspect}"
-        location = self.location
+        return if self.location.blank?
+        # replace state codes in location
+        location = DiscourseSyncToCustomField::ReplaceStateCodes.replace_state_codes(self.location)
         user_field_name = "user_field_#{custom_field.id}"
         ucf = UserCustomField.find_or_create_by(name: user_field_name, user_id: self.user.id)
         ucf.value = location
