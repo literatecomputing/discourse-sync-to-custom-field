@@ -22,6 +22,7 @@ after_initialize do
     if SiteSetting.discourse_sync_to_custom_field_enabled
       custom_field =
         UserField.find_by(name: SiteSetting.discourse_sync_to_custom_field_custom_email_field)
+      return if custom_field.nil?
       if custom_field.present?
         return if !self.primary?
         email = self.email
@@ -35,20 +36,21 @@ after_initialize do
 
   self.add_model_callback(UserProfile, :after_save) do
     if SiteSetting.discourse_sync_to_custom_field_enabled
-      puts "In after_save callback for UserProfile #{self.inspect} -- #{SiteSetting.discourse_sync_to_custom_field_enabled.inspect}"
+      puts "....Enabled"
       custom_field =
         UserField.find_by(name: SiteSetting.discourse_sync_to_custom_field_custom_location_field)
-      puts "All user fields: #{UserField.all.inspect}"
+      puts "Got custom field #{custom_field.inspect}"
+      return if custom_field.nil?
       if custom_field.present?
-        puts "--------> Syncing location to custom field #{custom_field.inspect} -- #{SiteSetting.discourse_sync_to_custom_field_custom_location_field.inspect}"
         return if self.location.blank?
         # replace state codes in location
-        location = DiscourseSyncToCustomField::ReplaceStateCodes.replace_state_codes(self.location)
+        location = self.location
+        puts "Original location is #{location}"
+        location = DiscourseSyncToCustomField::ReplaceStateCodes.replace_state_codes(location)
+        puts "Setting location to #{location}"
         user_field_name = "user_field_#{custom_field.id}"
-        ucf = UserCustomField.find_or_create_by(name: user_field_name, user_id: self.user.id)
-        ucf.value = location
-        ucf.save!
-        puts "--------> Set #{user_field_name} to #{location} for user #{self.user.username}"
+        user.custom_fields[user_field_name] = location
+        user.save
       end
     end
   end

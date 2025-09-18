@@ -35,14 +35,9 @@ RSpec.describe "Profile Location", type: :system do
   end
 
   it "replaces state codes in the location field" do
-    user.custom_fields["user_field_#{user_location_field.id}"] = "My Old Address, CA"
-    user.save
+    user.user_profile.location = "My New Address, CA"
+    user.user_profile.save
     user.reload
-    expect(user.custom_fields["user_field_#{user_location_field.id}"]).to eq("My Old Address, CA")
-    DiscourseSyncToCustomField::ReplaceStateCodes.call(user)
-    user.reload
-    expect(user.custom_fields["user_field_#{user_location_field.id}"]).to eq(
-      "My Old Address, California",
-    )
+    expect(user.custom_fields["user_field_#{user_location_field.id}"]).to eq("My New Address, California")
   end
 end
