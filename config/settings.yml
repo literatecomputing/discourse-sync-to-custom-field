@@ -1,4 +1,10 @@
 discourse_sync_to_custom_field:
   discourse_sync_to_custom_field_enabled:
-    default: false
+    default: true # TODO: set to false for production
+    client: true
+  discourse_sync_to_custom_field_custom_email_field:
+    default: "PublicEmail"
+    client: true
+  discourse_sync_to_custom_field_custom_location_field:
+    default: "Address"
     client: true

@@ -5,4 +5,6 @@ DiscourseSyncToCustomField::Engine.routes.draw do
   # define routes here
 end
 
-Discourse::Application.routes.draw { mount ::DiscourseSyncToCustomField::Engine, at: "discourse-sync-to-custom-field" }
+Discourse::Application.routes.draw do
+  mount ::DiscourseSyncToCustomField::Engine, at: "discourse-sync-to-custom-field"
+end
