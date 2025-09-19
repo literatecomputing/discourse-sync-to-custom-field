@@ -61,6 +61,21 @@ module DiscourseSyncToCustomField
       "MP" => "Northern Mariana Islands",
       "PR" => "Puerto Rico",
       "VI" => "U.S. Virgin Islands",
+      "UM" => "U.S. Minor Outlying Islands",
+      # Canadian Provinces and Territories
+      "AB" => "Alberta",
+      "BC" => "British Columbia",
+      "MB" => "Manitoba",
+      "NB" => "New Brunswick",
+      "NL" => "Newfoundland and Labrador",
+      "NS" => "Nova Scotia",
+      "ON" => "Ontario",
+      "PE" => "Prince Edward Island",
+      "QC" => "Quebec",
+      "SK" => "Saskatchewan",
+      "NT" => "Northwest Territories",
+      "NU" => "Nunavut",
+      "YT" => "Yukon",
     }
 
     # Replaces all 2-letter state codes in the input string with full state names
