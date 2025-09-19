@@ -38,6 +38,8 @@ RSpec.describe "Profile Location", type: :system do
     user.user_profile.location = "My New Address, CA"
     user.user_profile.save
     user.reload
-    expect(user.custom_fields["user_field_#{user_location_field.id}"]).to eq("My New Address, California")
+    expect(user.custom_fields["user_field_#{user_location_field.id}"]).to eq(
+      "My New Address, California",
+    )
   end
 end
