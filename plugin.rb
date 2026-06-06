@@ -29,7 +29,6 @@ after_initialize do
         user_field_name = "user_field_#{custom_field.id}"
         ucf = UserCustomField.find_or_create_by(name: user_field_name, user_id: self.user.id)
         ucf.value = self.email
-        ucf.save!
       end
     end
   end
@@ -50,7 +49,6 @@ after_initialize do
         puts "Setting location to #{location}"
         user_field_name = "user_field_#{custom_field.id}"
         user.custom_fields[user_field_name] = location
-        user.save
       end
     end
   end
