@@ -29,6 +29,7 @@ after_initialize do
         user_field_name = "user_field_#{custom_field.id}"
         ucf = UserCustomField.find_or_create_by(name: user_field_name, user_id: self.user.id)
         ucf.value = self.email
+        ucf.save
       end
     end
   end
@@ -48,7 +49,9 @@ after_initialize do
         location = DiscourseSyncToCustomField::ReplaceStateCodes.replace_state_codes(location)
         puts "Setting location to #{location}"
         user_field_name = "user_field_#{custom_field.id}"
-        user.custom_fields[user_field_name] = location
+        ucf = UserCustomField.find_or_create_by(name: user_field_name, user_id: user.id)
+        ucf.value = location
+        ucf.save
       end
     end
   end
